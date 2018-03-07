@@ -13,11 +13,16 @@ public class BASE64Util {
 	 * 生成图片的Base64编码
 	 */
 	public static String fromImage2Base64(File image) throws IOException{
-		InputStream in = new FileInputStream(image);
-		byte[] b = new byte[in.available()];
-		in.read(b);
-		String imgStr = new BASE64Encoder().encode(b);
-		in.close();
+		InputStream in = null;
+		String imgStr;
+		try {
+			in = new FileInputStream(image);
+			byte[] b = new byte[in.available()];
+			in.read(b);
+			imgStr = new BASE64Encoder().encode(b);
+		} finally {
+			in.close();
+		}
 		return imgStr;
 	}
 
